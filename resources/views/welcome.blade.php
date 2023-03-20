@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="css/rating.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-    <script src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./resources/js/app.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="pages/pages.js"></script>
     <script type="text/javascript">
@@ -27,7 +26,7 @@
     <!--    navbar-fixed-top-->
     <div class="container">
         <div class="navbar-header">
-            <a href="./">
+            <a href="{{ route('welcome') }}">
                 <img
                      src="{{ URL::asset('db_logo.png') }}"
                      width="64"
@@ -36,7 +35,7 @@
         </div>
 
         <div class="navbar-header">
-            <a href="#" class="navbar-brand text-light">БД</a>
+            <a href="{{ route('tables') }}" class="navbar-brand text-light">БД</a>
         </div>
 
         <div class="navbar-collapse collapse" style="color: #badbcc !important;" id="navbar-main">
@@ -56,7 +55,7 @@
                     <li class="nav-item">
                         <a class="navbar-brand text-light" href="{{ route('user.logout') }}">Выйти</a>
                     </li>
-                    <li class="nav-item"><a href="./tasks" class="navbar-brand text-light">Задачи</a></li>
+                    <li class="nav-item"><a href="{{ route('task.index') }}" class="navbar-brand text-light">Задачи</a></li>
                 @endguest
 
 

@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Add New Post</h2>
+                <h2>Добавить новую задачу</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('tasks.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('tasks.index') }}"> Назад</a>
             </div>
         </div>
     </div>
@@ -28,48 +28,48 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Status:</strong>
+                    <strong>Статус:</strong>
                     <input type="text" name="status" class="form-control" placeholder="Title">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Description:</strong>
+                    <strong>Описание:</strong>
                     <textarea class="form-control" style="height:150px" name="description" placeholder="Description"></textarea>
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Admin:</strong>
+                    <strong>Администратор:</strong>
                     <input type="text" name="admin_id" class="form-control" placeholder="Title">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Rating:</strong>
+                    <strong>Рейтинг:</strong>
                     <input type="text" name="rating" class="form-control" placeholder="Title">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>User:</strong>
+                    <strong>Пользователь:</strong>
                     <input type="text" name="user_id" class="form-control" placeholder="Title">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Answer:</strong>
+                    <strong>Ответ:</strong>
                     <input type="text" name="answer" class="form-control" placeholder="Title">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Подтвердить</button>
             </div>
         </div>
     </form>

@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="card">
-                        <h3 class="card-header text-center">Login</h3>
+                        <h3 class="card-header text-center">Авторизация</h3>
                         <div class="card-body">
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success">
@@ -24,7 +24,7 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <input type="password" placeholder="Password" id="password" class="form-control" name="password" required>
+                                    <input type="password" placeholder="Пароль" id="password" class="form-control" name="password" required>
                                     @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                     @endif
@@ -33,13 +33,13 @@
                                 <div class="form-group mb-3">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="remember"> Remember Me
+                                            <input type="checkbox" name="remember"> Запомнить меня
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="d-grid mx-auto">
-                                    <button type="submit" class="btn btn-dark btn-block">Signin</button>
+                                    <button type="submit" class="btn btn-dark btn-block">Войти</button>
                                 </div>
                             </form>
 

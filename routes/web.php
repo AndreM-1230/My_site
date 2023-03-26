@@ -19,7 +19,7 @@ use App\Http\Controllers\SiteTablesController;
 */
 
 Route::resource('tasks', TaskController::class);
-
+Route::resource('table', SiteTablesController::class);
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -58,13 +58,25 @@ Route::name('user.')->group(function (){
 Route::view('/setting', 'accounts.setting')->name('setting');
 Route::get('/change-password', 'App\Http\Controllers\ChangePasswordController@setting')->name('password.change');
 Route::patch('/change-password', 'App\Http\Controllers\ChangePasswordController@update')->name('password.update');
-Route::resource('info_data', SiteTablesController::class);
 
-Route::controller(SiteTablesController::class)->group(function () {
-    Route::get('/tables', 'show')->name('tables');
+/*Route::controller(SiteTablesController::class)->group(function () {
 
-    Route::get('/table/{table}', 'TablesView')->name('table');
-    Route::post('/table/{table}', 'TablesView');
-});
+        Route::get('/tables', 'show')->name('tables');
+
+        Route::get('/table/{table}', 'TablesView')->name('table');
+        Route::post('/table/{table}', 'TablesView');
+
+        Route::get('/table/', 'TablesSearch')->name('tblSearch');
+        Route::post('/table/', 'TablesSearch');
+
+        Route::get('/table/', 'TablesDelete')->name('tblDelete');
+        Route::post('/table/', 'TablesDelete');
+
+        Route::get('/table/', 'TablesUpdate')->name('tblUpdate');
+        Route::post('/table/', 'TablesUpdate');
+
+        Route::get('/table/', 'TablesAdd')->name('tblAdd');
+        Route::post('/table/', 'TablesAdd');
 
 
+});*/

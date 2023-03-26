@@ -34,10 +34,6 @@
                      alt="Информационная база данных производства"/></a>
         </div>
 
-        <div class="navbar-header">
-            <a href="{{ route('tables') }}" class="navbar-brand text-light">БД</a>
-        </div>
-
         <div class="navbar-collapse collapse" style="color: #badbcc !important;" id="navbar-main">
 
             <ul class="nav navbar-nav navbar-right">
@@ -50,12 +46,17 @@
                     </li>
                 @else
                     <li class="nav-item">
+                        <a class="navbar-brand text-light" href="{{ route('table.index') }}">БД</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="navbar-brand text-light" href="{{ route('user.private') }}">Личный кабинет</a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand text-light" href="{{ route('user.logout') }}">Выйти</a>
                     </li>
-                    <li class="nav-item"><a href="{{ route('task.index') }}" class="navbar-brand text-light">Задачи</a></li>
+                    <li class="nav-item">
+                        <a class="navbar-brand text-light" href="{{ route('tasks.index') }}" >Задачи</a>
+                    </li>
                 @endguest
 
 

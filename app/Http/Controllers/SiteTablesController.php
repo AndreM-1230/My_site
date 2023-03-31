@@ -76,6 +76,27 @@ class SiteTablesController extends Controller
         return redirect()->route('table.index', [$data['table']]);
     }
 
+    public function search(Request $request)
+    {
+        $data['table'] = $request->table;
+        $data['search'] = $request->search;
+        $data['tables'] = Schema::connection('mysql2')->getAllTables();
+        $data['columns'] = DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($data['table']);
+        $key = array_search('id', $data['columns']);
+        if ($key !== false) {
+            array_unshift($data['columns'], $data['columns'][$key]);
+            unset($data['columns'][$key + 1]);
+        }
+        $query = "SELECT * FROM {$data['table']} WHERE ";
+        foreach ($data['columns'] as $column) {
+            $query .= "$column LIKE '%{$data['search']}%' OR ";
+        }
+        $query = substr($query, 0, -4);
+        $query .= " ORDER BY id DESC LIMIT 1, 20";
+        $data['data'] = DB::connection('mysql2')->select($query);
+        return view('info_data.table', compact('data'));
+    }
+
     public function create(Request $request)
     {
 

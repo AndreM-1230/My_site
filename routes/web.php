@@ -19,7 +19,17 @@ use App\Http\Controllers\SiteTablesController;
 */
 
 Route::resource('tasks', TaskController::class);
-Route::resource('table', SiteTablesController::class);
+
+Route::name('table.')->group(function (){
+    Route::get('/tables', [SiteTablesController::class, 'index'])->name('index');
+    Route::get('/tables/{table}/show/{id}', [SiteTablesController::class, 'show'])->name('show');
+    Route::get('/tables/{table}/edit/{id}', [SiteTablesController::class, 'edit'])->name('edit');
+    Route::put('/tables/{table}/update/{id}', [SiteTablesController::class, 'update'])->name('update');
+    Route::delete('/tables/{table}/delete/{id}', [SiteTablesController::class, 'destroy'])->name('destroy');
+    Route::post('/tables/create', [SiteTablesController::class, 'TablesCreate'])->name('create');
+    Route::post('/tables/{table}/search', [SiteTablesController::class, 'search'])->name('search');
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -58,25 +68,3 @@ Route::name('user.')->group(function (){
 Route::view('/setting', 'accounts.setting')->name('setting');
 Route::get('/change-password', 'App\Http\Controllers\ChangePasswordController@setting')->name('password.change');
 Route::patch('/change-password', 'App\Http\Controllers\ChangePasswordController@update')->name('password.update');
-
-/*Route::controller(SiteTablesController::class)->group(function () {
-
-        Route::get('/tables', 'show')->name('tables');
-
-        Route::get('/table/{table}', 'TablesView')->name('table');
-        Route::post('/table/{table}', 'TablesView');
-
-        Route::get('/table/', 'TablesSearch')->name('tblSearch');
-        Route::post('/table/', 'TablesSearch');
-
-        Route::get('/table/', 'TablesDelete')->name('tblDelete');
-        Route::post('/table/', 'TablesDelete');
-
-        Route::get('/table/', 'TablesUpdate')->name('tblUpdate');
-        Route::post('/table/', 'TablesUpdate');
-
-        Route::get('/table/', 'TablesAdd')->name('tblAdd');
-        Route::post('/table/', 'TablesAdd');
-
-
-});*/

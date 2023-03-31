@@ -54,8 +54,5 @@
                 {{ $task->answer }}
             </div>
         </div>
-
-
-
     </div>
 @endsection

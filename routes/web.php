@@ -26,8 +26,10 @@ Route::name('table.')->group(function (){
     Route::get('/tables/{table}/edit/{id}', [SiteTablesController::class, 'edit'])->name('edit');
     Route::put('/tables/{table}/update/{id}', [SiteTablesController::class, 'update'])->name('update');
     Route::delete('/tables/{table}/delete/{id}', [SiteTablesController::class, 'destroy'])->name('destroy');
-    Route::post('/tables/create', [SiteTablesController::class, 'TablesCreate'])->name('create');
+    Route::get('/tables/create', [SiteTablesController::class, 'create'])->name('create');
+    Route::put('/tables/{table}/save', [SiteTablesController::class, 'save'])->name('save');
     Route::post('/tables/{table}/search', [SiteTablesController::class, 'search'])->name('search');
+    Route::get('/tables/{table}/search', [SiteTablesController::class, 'search'])->name('search');
 });
 
 Route::get('/', function () {

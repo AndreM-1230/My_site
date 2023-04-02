@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Редактирование таблицы {{$data['table']}} - {{$data['id']}}</h2>
+                <h2>Добавление в таблицу {{$data['table']}}</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('table.index', ['table' => $data['table']]) }}"> Вернуться к таблице</a>
@@ -23,22 +23,22 @@
         </div>
     @endif
 
-    <form action="{{ route('table.create', ['table' => $data['table'],'id' => $data['id']]) }}" method="POST">
+    <form action="{{ route('table.save', ['table' => $data['table']])}}" method="POST">
         @csrf
         @method('PUT')
         <div class="row">
-        @foreach($data['data'][0] as $key => $value)
-            @if($key != 'id')
+        @foreach($data['columns'] as $value)
+            @if($value != 'id')
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>{{$key}}:</strong>
-                    <input type="text" name="{{$key}}" value="{{$value}}" class="form-control" placeholder="Заполните поле">
+                    <strong>{{$value}}:</strong>
+                    <input type="text" name="{{$value}}" value="" class="form-control" placeholder="Заполните поле">
                 </div>
             </div>
             @endif
         @endforeach
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">Добавить</button>
             </div>
         </div>
     </form>

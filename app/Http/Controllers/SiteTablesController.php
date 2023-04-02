@@ -18,12 +18,17 @@ class SiteTablesController extends Controller
     public function index(Request $request)
     {
         $data['tables'] = Schema::connection('mysql2')->getAllTables();
-        $data['table'] = $request->table ?? null;
-        if (!$data['table'] && $data['tables']) {
-            $data['table'] = $data['tables'][0]->Tables_in_corp_site_tables;
+        if ($request->table) {
+            Session::put('table', $request->table);
+            $data['table'] = Session::get('table');
+        } elseif (Session::get('table')) {
+            $data['table'] = Session::get('table');
+        } else {
+            Session::put('table', $data['tables'][0]->Tables_in_corp_site_tables);
+            $data['table'] = Session::get('table');
         }
-        $data['data'] = DB::connection('mysql2')->select('SELECT * FROM '. $data['table'] . ' ORDER BY id DESC LIMIT 1, 20');
-        $data['columns'] = DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($data['table']);
+        $data['data'] = DB::connection('mysql2')->table($data['table'])->orderByDesc('id')->paginate(20);
+        $data['columns'] = array_column(DB::connection('mysql2')->select('SHOW COLUMNS FROM ' . $data['table']), 'Field');
         $key = array_search('id', $data['columns']);
         if ($key !== false) {
             array_unshift($data['columns'], $data['columns'][$key]);
@@ -50,13 +55,8 @@ class SiteTablesController extends Controller
 
     public function destroy(Request $request)
     {
-        $id = $request->id;
-        $data['table'] = $request->table;
-        $data['tables'] = Schema::connection('mysql2')->getAllTables();
-        DB::connection('mysql2')->table($data['table'])->where('id', $id)->delete();
-        $data['data'] = DB::connection('mysql2')->select('SELECT * FROM '. $data['table'] . ' ORDER BY id DESC LIMIT 1, 20');
-        $data['columns'] = DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($data['table']);
-        return view('info_data.table', compact('data'));
+        DB::connection('mysql2')->table($request->table)->where('id', $request->id)->delete();
+        return redirect()->route('table.index');
     }
 
     public function edit(Request $request)
@@ -81,24 +81,32 @@ class SiteTablesController extends Controller
         $data['table'] = $request->table;
         $data['search'] = $request->search;
         $data['tables'] = Schema::connection('mysql2')->getAllTables();
-        $data['columns'] = DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($data['table']);
+        $data['columns'] = array_column(DB::connection('mysql2')->select('SHOW COLUMNS FROM ' . $data['table']), 'Field');
         $key = array_search('id', $data['columns']);
         if ($key !== false) {
             array_unshift($data['columns'], $data['columns'][$key]);
             unset($data['columns'][$key + 1]);
         }
-        $query = "SELECT * FROM {$data['table']} WHERE ";
+        $query = DB::connection('mysql2')->table($data['table']);
         foreach ($data['columns'] as $column) {
-            $query .= "$column LIKE '%{$data['search']}%' OR ";
+            $query->orWhere($column, 'LIKE', '%' . $data['search'] . '%');
         }
-        $query = substr($query, 0, -4);
-        $query .= " ORDER BY id DESC LIMIT 1, 20";
-        $data['data'] = DB::connection('mysql2')->select($query);
+        $data['data'] = $query->orderBy('id', 'desc')->paginate(20);
         return view('info_data.table', compact('data'));
     }
 
     public function create(Request $request)
     {
+        $data['table'] = $request->table;
+        $data['columns'] = DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($data['table']);
+        return view('info_data.create', compact('data'));
+    }
 
+    public function save(Request $request)
+    {
+        $data['table'] = $request->table;
+        $string = $request->except('_token', '_method', 'table');
+        DB::connection('mysql2')->table($data['table'])->insert($string);
+        return redirect()->route('table.index', [$data['table']]);
     }
 }

@@ -3,12 +3,18 @@
 <head>
     <x-header.head/>
 </head>
-<body>
-    <x-header.header/>       
-    <div class="container">
+<body class="bg-white text-gray-600 font-sans leading-normal text-base tracking-normal flex min-h-screen flex-col">
+    <div class="wrapper flex flex-1 flex-col">
+    <x-header.header/>
+    <main class="flex-1 container mx-auto bg-white">
+    <div class="content">
         @yield('content')
-        <div class="clearfix"></div>
+        
     </div>
+    
+    </main>
     <x-footer.footer/>
+    </div>
+    
 </body>
 </html>

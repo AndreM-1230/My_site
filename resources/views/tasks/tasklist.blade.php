@@ -57,5 +57,5 @@
             </tr>
         @endforeach
     </table>
-
+    <div>{{ $tasks->links('pagination::bootstrap-5') }}</div>
 @endsection
